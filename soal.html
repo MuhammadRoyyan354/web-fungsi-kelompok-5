@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relasi dan Fungsi</title>
+    <link
+      rel="stylesheet"
+      href="./css/bootstrap-5.3.1-dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const questions = [
+          { x: 0, bil1: 32, bil2: 4 },
+          { x: 2, bil1: 32, bil2: 4 },
+          { x: 3, bil1: 32, bil2: 4 },
+          { x: 4, bil1: 32, bil2: 4 },
+          { x: 5, bil1: 32, bil2: 4 },
+        ];
+
+        const container = document.getElementById("questions-container");
+
+        questions.forEach((question, index) => {
+          const { x, bil1, bil2 } = question;
+          const soal = `f(x) = x + ${bil1} - ${bil2} = `;
+          const hasil = x + bil1 - bil2;
+          const pesan = `karena ${x} + ${bil1} = ${x + bil1} dan ${
+            x + bil1
+          } - ${bil2} = ${hasil}`;
+
+          const form = document.createElement("form");
+          form.innerHTML = `
+                    <span class="fw-semibold">${
+                      index + 1
+                    }. ${soal} <p>x = ${x}</p></span>
+                    <input type="number" id="jawaban${index}" placeholder="Masukkan Jawaban" class="form-control fw-semibold mb-2">
+                    <button type="button" class="btn btn-primary" onclick="checkAnswer(${index}, ${hasil}, '${pesan}')">Cek Jawaban</button>
+                    <p id="result${index}" class="mt-2"></p>
+                `;
+          container.appendChild(form);
+        });
+      });
+
+      function checkAnswer(index, correctAnswer, pesan) {
+        const input = document.getElementById(`jawaban${index}`);
+        const result = document.getElementById(`result${index}`);
+        const userAnswer = parseInt(input.value, 10);
+
+        if (!isNaN(userAnswer)) {
+          if (userAnswer === correctAnswer) {
+            result.textContent = `Jawaban anda benar. ${pesan}`;
+            result.className = "text-white";
+          } else {
+            result.textContent = `Jawaban anda salah. ${pesan}`;
+            result.className = "text-danger";
+          }
+        } else {
+          result.textContent = "Masukkan jawaban yang valid.";
+          result.className = "text-warning";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Kalkulator Fungsi
+        const calculateFunction = () => {
+          const x = parseFloat(document.getElementById("xInput").value);
+          const bil1 = parseFloat(document.getElementById("bil1Input").value);
+          const bil2 = parseFloat(document.getElementById("bil2Input").value);
+          const result = document.getElementById("calcResult");
+
+          if (!isNaN(x) && !isNaN(bil1) && !isNaN(bil2)) {
+            const calculation = x + bil1 - bil2;
+            result.textContent = `Hasil: f(${x}) = ${x} + ${bil1} - ${bil2} = ${calculation}`;
+            result.className = "text-success";
+          } else {
+            result.textContent =
+              "Masukkan nilai yang valid untuk x, bilangan 1, dan bilangan 2.";
+            result.className = "text-danger";
+          }
+        };
+
+        document
+          .getElementById("calculateBtn")
+          .addEventListener("click", calculateFunction);
+      });
+    </script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">Relasi dan Fungsi</a>
+        <button
+          class="navbar-toggler mb-2"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link btn me-2 mb-1" href="index.html#video"
+                >Video</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link btn me-2 mb-1" href="kalkulator.html"
+                >Kalkulator</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link btn me-2 mb-1" href="soal.html">Soal</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section id="soal" class="mt-5">
+      <div class="container">
+        <div class="l-1">
+          <div class="l-2">
+            <h3 class="fw-semibold text-center">Soal</h3>
+            <div id="questions-container"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script src="./css/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
